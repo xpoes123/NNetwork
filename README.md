@@ -40,29 +40,29 @@ you through the process.
 
 Create an undirected (weighted) graph from an edgelist:
 ```python
->>> from NNetwork import NNetwork
+>>> from NNetwork import NNetwork as nn
 >>> edgelist = [[1,2],[2,3],[3,4]]
->>> G = NNetwork()
+>>> G = nn.NNetwork()
 >>> G.add_edges(edgelist)
->>> G.has_edge(2,3)
+>>> G.has_edge('2','3')
 True
->>> G.get_edge_weight(2,3)
+>>> G.get_edge_weight('2','3')
 1
 
 ```
 Get the neighbors of a node:
 ```python
->>> G.neighbors(3)
-[2,4]
+>>> G.neighbors('3')
+{'2', '4'}
 ```
 
 Find the intersection of edges with another network:
 ```python
 >>> edgelist2 = [[2,3],[3,4],[5,7]]
->>> G2 = NNetwork()
+>>> G2 = nn.NNetwork()
 >>> G2.add_edges(edgelist2)
 >>> G.intersection(G2)
-[[2,3],[3,4]]
+[['4', '3'], ['3', '4'], ['3', '2'], ['2', '3']]
 ```
 
 **Weighted Graphs**
@@ -70,18 +70,18 @@ Find the intersection of edges with another network:
 Create a weighted graph from an edgelist:
 ```python
 >>> from NNetwork import NNetwork
->>> edgelist = [[1,2,0.5],[2,3,0.8]]]
+>>> edgelist = [[1,2,0.5],[2,3,0.8]]
 >>> G = NNetwork()
->>> G.add_wtd_edges(edgelist)
->>> G.get_edge_weight([2,3])
+>>> G.add_edges(edgelist)
+>>> G.get_edge_weight('2','3')
 0.8
 ```
 
 Convert weighted graph to an unweighed graph by thresholding
 ```python
 >>> G_simple = G.threshold2simple(0.7)
->>> G_simple.edges()
-[[2,3]]
+>>> G_simple.get_edges()
+[['2', '3'], ['3', '2']]
 ```
 
 **Mesoscale patch computation**
